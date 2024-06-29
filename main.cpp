@@ -14,22 +14,33 @@ int main(){
     rand_cell(&test_grid);
     print_grid(&test_grid);
 
-    shift_cell_down(&test_grid);
+    char move;
+    cout << "what is your move?" << endl;
+    scanf("%c", &move);
+    while(ongoing_game(&test_grid)){
+        if (move == 'w'){
+            shift_cell_up(&test_grid);
+            print_grid(&test_grid);
+
+        }
+        else if (move == 'a'){
+            shift_cell_left(&test_grid);
+            print_grid(&test_grid);        
+        }
+        else if (move == 's'){
+            shift_cell_down(&test_grid);
+            print_grid(&test_grid);
+        }
+        else if (move == 'd'){
+            shift_cell_right(&test_grid);
+            print_grid(&test_grid); 
+        }
+        else{
+            cout << "please enter a valid direction (wasd)" << endl;
+        }
+        scanf("%c", &move);
+    }
     print_grid(&test_grid);
-
-    shift_cell_up(&test_grid);
-    print_grid(&test_grid);
-
-    shift_cell_left(&test_grid);
-    print_grid(&test_grid);
-
-    shift_cell_right(&test_grid);
-    print_grid(&test_grid);
-    // cout << "x: " << test_grid.playing_grid[1][2].coord.x << "y: " << test_grid.playing_grid[1][2].coord.y << endl;
-    // cout << "value: " << test_grid.playing_grid[1][2].value << endl;
-    // cout << "2 or 4" << endl << two_or_four() << endl;
-
-    
-
+    cout << "game over!" << endl;
     return 0;
 }

@@ -56,6 +56,7 @@ void print_grid(GRID*grid){
 
 void shift_cell_down(GRID* grid){
     int move;
+    int valid(0);
     do {
         move = 0;
         for (int i = 2; i >= 0; i--) {
@@ -64,20 +65,25 @@ void shift_cell_down(GRID* grid){
                     grid->playing_grid[i+1][j].value = grid->playing_grid[i][j].value;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
                 else if (grid->playing_grid[i+1][j].value == grid->playing_grid[i][j].value && grid->playing_grid[i][j].value != 0) {
                     grid->playing_grid[i+1][j].value *= 2;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
             }
         }
     } while (move != 0);
-    rand_cell(grid);
+    if (valid){
+            rand_cell(grid);
+    }
 }
 
 void shift_cell_up(GRID* grid){
     int move;
+    int valid(0);
     do {
         move = 0;
         for (int i = 1; i < 4; i++) {
@@ -86,20 +92,26 @@ void shift_cell_up(GRID* grid){
                     grid->playing_grid[i-1][j].value = grid->playing_grid[i][j].value;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
                 else if (grid->playing_grid[i-1][j].value == grid->playing_grid[i][j].value && grid->playing_grid[i][j].value != 0) {
                     grid->playing_grid[i-1][j].value *= 2;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
             }
         }
     } while (move != 0);
-    rand_cell(grid);
+    if (valid){
+            rand_cell(grid);
+    }
+
 }
 
 void shift_cell_left(GRID* grid){
     int move;
+    int valid(0);
     do {
         move = 0;
         for (int i = 0; i < 4; i++) {
@@ -108,20 +120,25 @@ void shift_cell_left(GRID* grid){
                     grid->playing_grid[i][j-1].value = grid->playing_grid[i][j].value;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
                 else if (grid->playing_grid[i][j-1].value == grid->playing_grid[i][j].value && grid->playing_grid[i][j].value != 0) {
                     grid->playing_grid[i][j-1].value *= 2;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
             }
         }
     } while (move != 0);
-    rand_cell(grid);
+    if (valid){
+            rand_cell(grid);
+    }
 }
 
 void shift_cell_right(GRID* grid){
     int move;
+    int valid(0);
     do {
         move = 0;
         for (int i = 0; i < 4; i++) {
@@ -130,14 +147,35 @@ void shift_cell_right(GRID* grid){
                     grid->playing_grid[i][j+1].value = grid->playing_grid[i][j].value;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
                 else if (grid->playing_grid[i][j+1].value == grid->playing_grid[i][j].value && grid->playing_grid[i][j].value != 0) {
                     grid->playing_grid[i][j+1].value *= 2;
                     grid->playing_grid[i][j].value = 0;
                     move++;
+                    valid++;
                 }
             }
         }
     } while (move != 0);
-    rand_cell(grid);
+    if (valid){
+            rand_cell(grid);
+    }
+}
+
+int ongoing_game(GRID* grid){
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            if (grid->playing_grid[i][j].value==0){
+                return 1;
+            }
+            else if ( (i<3 && grid->playing_grid[i][j].value==grid->playing_grid[i+1][j].value)||
+                      (i>0 && grid->playing_grid[i][j].value==grid->playing_grid[i-1][j].value)||
+                      (j<3 && grid->playing_grid[i][j].value==grid->playing_grid[i][j+1].value)||
+                      (j>0 && grid->playing_grid[i][j].value==grid->playing_grid[i][j-1].value)){
+                return 1;        
+            }
+        }
+    }
+    return 0;
 }

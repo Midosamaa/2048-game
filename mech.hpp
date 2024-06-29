@@ -31,4 +31,6 @@ void shift_cell_up(GRID* grid);
 void shift_cell_right(GRID* grid);
 void shift_cell_left(GRID* grid);
 
+int ongoing_game(GRID* grid);
+
 #endif
