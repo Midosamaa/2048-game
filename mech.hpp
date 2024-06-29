@@ -26,4 +26,9 @@ GRID init_grid();
 void rand_cell(GRID* grid);
 void print_grid(GRID*grid);
 
+void shift_cell_down(GRID* grid);
+void shift_cell_up(GRID* grid);
+void shift_cell_right(GRID* grid);
+void shift_cell_left(GRID* grid);
+
 #endif
